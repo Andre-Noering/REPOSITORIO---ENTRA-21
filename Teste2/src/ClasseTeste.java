@@ -1,6 +1,9 @@
+import jdk.swing.interop.SwingInterOpUtils;
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.Objects;
 import java.util.Scanner;
-
+import java.util.Random;
 public class ClasseTeste {
 
     public static void main(String[] args) {
@@ -220,7 +223,7 @@ public class ClasseTeste {
         double horas = scan.nextDouble();
         System.out.print("Digite o salário por hora: ");
         double salario = scan.nextDouble();
-        double horas_nec=40*5*4;
+        double horas_nec=40*4;
         if (horas>horas_nec){
             double salario_extra=((horas-horas_nec)*(salario+((salario/100)*50)))+salario*horas_nec;
             System.out.println("O salário total será de R$" + salario_extra);
@@ -303,8 +306,183 @@ public class ClasseTeste {
         }
 
      */ //Exercício 22
+        // Pós Atestado
+        /*
+        Scanner in = new Scanner(System.in);
+        System.out.print("Digite o número: ");
+        int num= in.nextInt();
+        int fator=1;
+        for (int i=1; i<=num; i++){
+            fator*=i;
+        }
+        System.out.println("O fatorial do número é : " +fator);
+    */ //Exercício Teste - Fatorial
+        /*
+        int pin=91352;
+        for (int i=2; i>=0; i--){
+            Scanner in = new Scanner(System.in);
+            System.out.println("Digite o PIN de 5 dígitos: ");
+            int user= in.nextInt();
+            if (user==pin){
+                System.out.println("Acesso permitido");
+                break;
+            } else if (i>0){
+                System.out.println("Acesso negado. Você tem "+i+" tentativas restantes.");
+            } else {
+                System.out.println("Acesso negado. Suas tentativas acabaram.");
+            }*/ //Exercício Senha
+        /*
+        Scanner in = new Scanner(System.in);
+        System.out.print("Digite o nome e o sobrenome: ");
+        String nomeComp= in.nextLine();
+        String[] separados=nomeComp.split(" ");
+        String nome=separados[0];
+        String sobrenome=separados[1];
+        System.out.println(nome.charAt(0)+". "+sobrenome.charAt(0)+".");
+        */
+        /*
+        String inf="";
+        int fim=0;
+        Scanner in = new Scanner(System.in);
+        while (fim==0) {
+            Random computador = new Random();
+            System.out.println("PEDRA PAPEL TESOURA");
+            System.out.println("JOGADOR, você escolhe Pedra (0), Papel (1) ou Tesoura (2)?");
+            System.out.print("(Digite o valor numérico respectivo):");
+            int jog = in.nextInt();
+            int comp = computador.nextInt(2);
+            switch (comp) {
+                case 0:
+                    inf = "Pedra";
+                    break;
+                case 1:
+                    inf = "Papel";
+                    break;
+                case 2:
+                    inf = "Tesoura";
+                    break;
+            }
+            System.out.println("O computador escolheu: " + inf);
+            switch (jog) {
+                case 0:
+                    switch (comp) {
+                        case 0:
+                            System.out.println("Empate! =/");
+
+                            break;
+                        case 1:
+                            System.out.println("Papel embrulha Pedra. O computador venceu! =(");
+                            fim = 1;
+                            break;
+                        case 2:
+                            System.out.println("Pedra esmaga Tesoura. Você venceu! =)");
+                            fim = 1;
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (comp) {
+                        case 0:
+                            System.out.println("Papel embrulha Pedra. Você venceu! =)");
+                            fim = 1;
+                            break;
+                        case 1:
+                            System.out.println("Empate! =/");
+                            break;
+                        case 2:
+                            System.out.println("Tesoura corta Papel. O computador venceu! =(");
+                            fim = 1;
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (comp) {
+                        case 0:
+                            System.out.println("Pedra esmaga Tesoura. O computador venceu! =(");
+                            fim = 1;
+                            break;
+                        case 1:
+                            System.out.println("Tesoura corta Papel.  Você Venceu! =)");
+                            fim = 1;
+                            break;
+                        case 2:
+                            System.out.println("Empate!");
+                    }
+                    break;
+                default:
+                    System.out.println("Você digitou um valor inválido.");
+            }
+        }
+        System.out.println("Fim de jogo!");
+*/
+        /*
+        Scanner in = new Scanner(System.in);
+        System.out.print("Digite a palavra: ");
+        String pal=in.nextLine();
+        String contrario="";
+        int cont=pal.length();
+        cont--;
+        for (int i=cont; i>=0; i--) {
+            contrario += pal.charAt(i);
+        }
+        if (pal.equals(contrario)){
+            System.out.println("É um palíndromo.");
+        } else {
+            System.out.println("Não é um palíndromo");
+        }
+
+        */
+        Scanner in=new Scanner(System.in);
+        System.out.println("Digite a palavra: ");
+
+        String pal=in.nextLine();
+        pal=pal.toUpperCase();
+        char[] lista=new char [pal.length()];
+        int contteste=pal.length()-1;
+        boolean fim=false;
+        int cont=0;
+        int tent=6;
+        int contF=0;
+        for (int i = 0; i < pal.length(); i++) {
+            lista[i]='_';
+        }
+        while (!fim) {
+            cont=0;
+            System.out.print("Digite uma letra: ");
+            String letrains=in.nextLine();
+            letrains=letrains.toUpperCase();
+            for (int i = 0; i < pal.length(); i++) {
+                char letra=letrains.charAt(0);
+                if (lista[i]==letra){
+                    System.out.println("Você já digitou essa letra.");
+                    break;
+                }
+                if (pal.charAt(i)==letra){
+                    lista[i]=letra;
+                    cont+=1;
+                }
+            }
+            if (cont==0){
+                tent--;
+                System.out.println("Você errou. "+tent+" tentativas restantes.");
+            }
+            if (tent==0){
+                fim=true;
+                System.out.println("Você foi enforcado violentamente!");
+            }
+            for (int i = 0; i < pal.length(); i++) {
+                if (lista[i]=='_'){
+                    contF++;
+                }
+            }
+            System.out.println(lista);
+            if (contF==0){
+                fim=true;
+                System.out.println("Você ganhou!");
+            }
+
+            contF=0;
+        }
 
     }
-
 }
-

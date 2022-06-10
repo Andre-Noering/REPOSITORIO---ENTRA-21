@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.Locale;
+
 public class Estante {
     private int capMaxima;
     private Item[] itensEstante;
@@ -10,36 +12,32 @@ public class Estante {
         setItensEstante(new Item[capacidadeMaxima]);
     }
     public boolean estanteCheia(){
-        return getCapMaxima()==quantidadeItens();
+        return this.getCapMaxima()==this.quantidadeItens();
     }
     public int quantidadeItens(){
         int quantidade=0;
         for (Item item:getItensEstante()){
             if (item!=null){
-                quantidade+=1;
+                quantidade++;
             }
         }
         return quantidade;
     }
     public Item buscarItem(String titulo){
         for (Item item:getItensEstante()){
-            if (item!=null){
-                if (item.getTitulo().equals(titulo)){
+            if (item!=null&&item.getTitulo().toLowerCase().contains(titulo.toLowerCase())){
                     return item;
-                }
             }
         }
         return null;
     }
     public boolean adicionarItem(Item item){
-        if (!estanteCheia()){
             for (int i=0;i<getCapMaxima();i++){
                 if (getItensEstante()[i]==null){
                     getItensEstante()[i]=item;
                     return true;
                 }
             }
-        }
         return false;
     }
     public Item removerItem(int posicao){

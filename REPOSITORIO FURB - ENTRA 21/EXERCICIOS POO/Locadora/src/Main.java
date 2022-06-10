@@ -4,38 +4,46 @@ import java.util.Scanner;
 
 
 public class Main {
-    public static Scanner in=new Scanner(System.in);
+    public static Scanner in = new Scanner(System.in);
+
     public static void main(String[] args) {
         Estante estante = new Estante(5);
-        System.out.println("Você deseja adicionar um item na estante ou avaliar um item?");
-        System.out.print("1 para adicionar e 2 para avaliar: ");
-        int opcao=in.nextInt();
-        in.nextLine();
-        switch (opcao){
-            case 1:
-                estante.adicionarItem(mainCadastraItem());
+        System.out.printf("Você deseja adicionar um item na estante ou avaliar um item?\n(1 - Adicionar | 2 - Avaliar | 3 - Parar): ");
+        int opcao = in.nextInt();
+        while (true) {
+            if (opcao == 3) {
                 break;
-            case 2:
-                System.out.println("Digite o título (ou parte dele) do item que você deseja avaliar: ");
-                Item avaliado=estante.buscarItem(in.nextLine());
-                if (avaliado!=null) {
-                    avaliado.avaliar();
-                }
-        }
-        System.out.println("A estante tem " + estante.quantidadeItens() + " itens.");
-        for (int j = 0; j < 5; j++) {
-            Item itemf = estante.getItensEstante()[j];
-            if (itemf != null) {
-                if(itemf instanceof Livro){
-                    System.out.println(itemf.getTitulo()+"("+itemf.getGenero()+"): "+((Livro) itemf).getAnoPublicacao()+" - "+((Livro) itemf).getAutor());
-                } else {
-                    System.out.println(itemf.getTitulo()+"("+itemf.getGenero()+"): "+((DVD)itemf).getAnoLancamento()+" - "+((DVD) itemf).getDiretor());
-                }
-
-                System.out.println("Posição na estante: " + j);
             }
-        }
+            in.nextLine();
+            switch (opcao) {
+                case 1:
+                    estante.adicionarItem(mainCadastraItem());
+                    break;
+                case 2:
+                    System.out.println("Digite o título (ou parte dele) do item que você deseja avaliar: ");
+                    Item avaliado = estante.buscarItem(in.nextLine());
+                    if (avaliado != null) {
+                        avaliado.avaliar();
+                    }
+            }
+            System.out.println("A estante tem " + estante.quantidadeItens() + " itens.");
+            if (estante.estanteCheia()){
+                System.out.println("A estante está cheia!");
+            }
+            for (int j = 0; j < 5; j++) {
+                Item itemf = estante.getItensEstante()[j];
+                if (itemf != null) {
+                    if (itemf instanceof Livro) {
+                        System.out.println(itemf.getTitulo() + "(" + itemf.getGenero() + "): " + ((Livro) itemf).getAnoPublicacao() + " - " + ((Livro) itemf).getAutor());
+                    } else {
+                        System.out.println(itemf.getTitulo() + "(" + itemf.getGenero() + "): " + ((DVD) itemf).getAnoLancamento() + " - " + ((DVD) itemf).getDiretor());
+                    }
 
+                    System.out.println("Posição na estante: " + j);
+                }
+            }
+
+        }
     }
 
     public static Item mainCadastraItem() {
